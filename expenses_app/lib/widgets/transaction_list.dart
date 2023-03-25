@@ -12,8 +12,9 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 350,
-      child: ListView(
-        children: transactions.map((tx) {
+      //instead of constext can give any thing i.e ctx.
+      child: ListView.builder(
+        itemBuilder: (ctx, index) {
           return Card(
             child: Row(
               children: [
@@ -24,7 +25,13 @@ class TransactionList extends StatelessWidget {
                   child: Text(
                     // tx.amount.toString(),
                     //String Interpolation
-                    '\$${tx.amount}',
+
+                    // with ListBuilder there are a Index value which show
+                    //what record number we are showing or access.
+                    // '\$${tx.amount}',
+                    //to show only 2 value after decimal use
+                    //toStringAsFixed(2)
+                    '\$${transactions[index].amount.toStringAsFixed(2)}',
 
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -38,15 +45,16 @@ class TransactionList extends StatelessWidget {
                   //crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      tx.title,
+                      // tx.title,
+                      transactions[index].title,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(
                       //tx.date.toString(),
                       DateFormat.yMMMEd().format(
-                        tx.date,
-                      ),
+                          // tx.date,
+                          transactions[index].date),
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
@@ -54,7 +62,11 @@ class TransactionList extends StatelessWidget {
               ],
             ),
           );
-        }).toList(),
+        },
+        itemCount: transactions.length,
+//this will not needed with ListView Builder its simply take number of
+//items from itemCount with transactions.
+//        children: transactions.map((tx) {}).toList(),
       ),
     );
   }
