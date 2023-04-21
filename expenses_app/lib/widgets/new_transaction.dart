@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
-class NewTransactions extends StatelessWidget {
+class NewTransactions extends StatefulWidget {
   // addTx function will called from press button
 // we have use this because a
   final Function addTx;
-  final titleControlar = TextEditingController();
-  final amountControlar = TextEditingController();
 
-// constructor binding with we are getting from function.
   NewTransactions(this.addTx);
+
+  @override
+  State<NewTransactions> createState() => _NewTransactionsState();
+}
+
+class _NewTransactionsState extends State<NewTransactions> {
+  final titleControlar = TextEditingController();
+
+  final amountControlar = TextEditingController();
 
   // Here we have created Named function which we can call multiple time as required.
   void submitData() {
@@ -24,10 +30,12 @@ class NewTransactions extends StatelessWidget {
     // .text will give as String but we need in duble
     // so for that we provide amount as follow but
     //that will not work if text comes
-    addTx(
+    widget.addTx(
       titleControlar.text,
       double.parse(amountControlar.text),
     );
+//pop method will close the top most screen
+    Navigator.of(context).pop();
   }
 
   @override
