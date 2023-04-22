@@ -1,6 +1,8 @@
-import '../models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../models/transaction.dart';
+import '/widgets/chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
@@ -25,7 +27,18 @@ class Chart extends StatelessWidget {
       // print(totalSum);
 //DateFormate.E will get the 1st Char of the week as per weekday with
 //the help of intel.dart
-      return {'Day': DateFormat.E().format(weekDay), 'amount': totalSum};
+//substring used to get 1st char of week days name
+      return {
+        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'amount': totalSum
+      };
+    });
+  }
+
+  double get totalSpending {
+    // return groupedTransactionsValue.fold(initialValue, (previousValue, element) => null)
+    return groupedTransactionsValue.fold(0.0, (sum, item) {
+      return sum + (item['amount'] as double);
     });
   }
 
@@ -35,8 +48,25 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(
-        children: [],
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactionsValue.map((data) {
+            // return Text('${data['day']}: ${data['amount']}');
+            //ChartBar User created Widget.
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                  (data['day'] as String),
+                  (data['amount'] as double),
+                  //ternery expression.// to overcome from initial level error.
+                  totalSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / totalSpending),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
