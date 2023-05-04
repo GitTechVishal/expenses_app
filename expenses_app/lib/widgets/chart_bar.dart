@@ -19,7 +19,10 @@ class ChartBar extends StatelessWidget {
         // to Show Amount
         //FittedBox widget fill fit the text in between the available space
         //but not wrap it. to next line.
-        FittedBox(child: Text('\$${spendingAmount.toStringAsFixed(0)}')),
+        Container(
+            height: 20,
+            child: FittedBox(
+                child: Text('\$${spendingAmount.toStringAsFixed(0)}'))),
         //To fix space in between
         SizedBox(
           height: 4,

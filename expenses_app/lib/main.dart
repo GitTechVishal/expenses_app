@@ -1,7 +1,6 @@
 import './widgets/new_transaction.dart';
-import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
-//import './widgets/transaction_list.dart';
+import './widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 import './models/transaction.dart';
 
@@ -25,11 +24,14 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.blueAccent,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
+            headline6: TextStyle(
               fontFamily: 'OpenSans',
               fontWeight: FontWeight.bold,
               fontSize: 18,
-            )),
+            ),
+            //Theme set for button's color.
+            button: TextStyle(color: Colors.white)),
+
         //If commented appBartheme not working then use netx one which is not commented.
 
         // appBarTheme: AppBarTheme(

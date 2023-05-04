@@ -65,12 +65,31 @@ class _NewTransactionsState extends State<NewTransactions> {
               onSubmitted: (_) => submitData(),
               // onChanged: (val) => amountInput = val,
             ),
-            FlatButton(
+            //we want to give some hight in Row but Row does not
+            //have Hight Property for that we wrap row with container.
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  Text('No Date Chosen!'),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            RaisedButton(
               child: Text(
                 'Add Transaction',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              textColor: Colors.purple,
+              color: Theme.of(context).primaryColor,
+              textColor: Theme.of(context).textTheme.button?.color,
               onPressed: () => submitData(),
             )
           ],
